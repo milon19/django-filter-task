@@ -127,5 +127,5 @@ MEDIA_ROOT = str(BASE_DIR / 'media')
 
 AUTH_USER_MODEL = "users.User"
 
-LOGIN_REDIRECT_URL = ''
-LOGIN_URL = ''
+LOGIN_REDIRECT_URL = 'core:home-page'
+LOGIN_URL = 'users:login'
