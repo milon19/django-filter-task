@@ -8,23 +8,34 @@
     <div class="container text-center mt-2">
         <h1>Welcome to Home</h1>
 
-        <div class="row justify-content-center pt-5">
+        <div class="row justify-content-center pt-2">
             <div class="col-12 col-md-10 col-lg-8">
-                <form class="card card-sm">
+                <form class="card card-sm" action="{% url 'posts:post_search' %}" method="get">
                     <div class="card-body row no-gutters align-items-center">
                         <div class="col-auto">
                             <i class="fas fa-search h4 text-body"></i>
                         </div>
                         <div class="col">
-                            <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Search topics or keywords">
+                            <input id="search-box" onkeyup="disableButton()" class="form-control form-control-lg form-control-borderless" type="search" name='q' placeholder="Search posts or keywords">
                         </div>
 
-                        <div class="col-auto">
-                            <button class="btn btn-lg btn-success" type="submit">Search</button>
+                        <div class="col-auto ml-2">
+                            <button id="search-button" class="btn btn-lg btn-success" type="submit">Search</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block extra_script %}
+    <script>
+        function disableButton() {
+            document.getElementById('search-button').disabled = document.getElementById("search-box").value === "";
+        }
+        $(document).ready(function (){
+            disableButton();
+        });
+    </script>
 {% endblock %}
