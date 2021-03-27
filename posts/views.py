@@ -29,7 +29,7 @@ class PostSearchView(ListView):
             lookups = Q(title__icontains=query) | Q(body__icontains=query)
             queryset = Post.objects.filter(lookups)
             search_data = {
-                'user': request.user,
+                'user': request.user if request.user.is_authenticated else None,
                 'keyword': query
             }
             SearchHistory.objects.create(**search_data)

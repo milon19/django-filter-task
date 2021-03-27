@@ -8,7 +8,7 @@
     <div class="container mt-2">
         <h1 class="text-center">Search Result for: {{ query }}</h1>
         <p>Find {{ posts|length }} post(s):</p>
-        {% if not posts.length %}
+        {% if posts|length < 1 %}
             <h1 class="text-center mt-5">No data founded..</h1>
         {% else %}
             <div class="mt-3">
