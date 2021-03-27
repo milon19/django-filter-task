@@ -4,6 +4,7 @@ from django.views.generic import ListView
 from posts.models import Post
 from filters.models import SearchHistory
 
+
 class PostListView(ListView):
     template_name = 'posts/post_list.html'
     model = Post
@@ -25,7 +26,7 @@ class PostSearchView(ListView):
     def get_queryset(self):
         request = self.request
         query = request.GET.get('q')
-        if query is not None and query is not '':
+        if query and query is not '':
             lookups = Q(title__icontains=query) | Q(body__icontains=query)
             queryset = Post.objects.filter(lookups)
             search_data = {
