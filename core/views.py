@@ -1,4 +1,3 @@
-from django.db import connection
 from django.db.models import Count
 from django.views.generic import TemplateView
 from django.contrib.auth import get_user_model
@@ -16,7 +15,6 @@ class HomePageView(TemplateView):
         users = User.objects.all()
         keywords = SearchHistory.objects.all().values('keyword').annotate(count=Count('keyword')).order_by('keyword')
         time = SearchHistory.objects.values('search_time')
-        print(len(connection.queries))
 
         context['users'] = users
 
