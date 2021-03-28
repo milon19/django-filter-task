@@ -8,4 +8,5 @@ urlpatterns = [
     path('', include('core.urls', namespace='core')),
     path('', include('users.urls', namespace='users')),
     path('', include('posts.urls', namespace='posts')),
+    path('', include('filters.urls', namespace='filters')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
