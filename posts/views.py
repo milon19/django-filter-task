@@ -26,7 +26,7 @@ class PostSearchView(ListView):
     def get_queryset(self):
         request = self.request
         query = request.GET.get('q')
-        if query and query is not '':
+        if query and query != '':
             lookups = Q(title__icontains=query) | Q(body__icontains=query)
             queryset = Post.objects.filter(lookups)
             search_data = {
