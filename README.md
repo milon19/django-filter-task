@@ -42,4 +42,4 @@ Then visit [http://localhost:8000](http://localhost:8000) to view the app.
 
 This application is currently deployed in Heroku. 
 
-To Visit follow this link: [Heroku App URL.](https://example.herokuapp.com/)
+To Visit follow this link: [Heroku App URL.](https://django-filtering.herokuapp.com/)
