@@ -45,7 +45,6 @@
                     var searchResultData = $('#search-result-data')
                     var searchData = ''
                     var json_data = JSON.parse(data)
-                    console.log(json_data);
                     if (json_data.length === 0){
                         var msg = `<p class="text-center">No Search history here. Please search above.</p>`
                         searchResultData.append(msg)
@@ -56,7 +55,6 @@
                                 <div class="media" >
                                     <div class="media-body" >
                                         <h5 class="mt-0" id="keyword">${value.keyword}</h5>
-                                        <p>${value.time}</p>
                                         Search Time: <span id="time">${moment(value.time).format("LLLL")}</span>
                                         <small style="float: right">user: <span id="author">${value.user}</span></small>
                                     </div>
@@ -74,7 +72,6 @@
             filterForm.submit(function (event) {
                 event.preventDefault()
                 var thisForm = $(this)
-                console.log(thisForm.serialize());
                 $.ajax({
                     type: "get",
                     url: '/search-history/',
@@ -85,7 +82,6 @@
                         searchResultData.html('');
                         var searchData = '';
                         var json_data = JSON.parse(data);
-                        console.log(json_data);
                         if (json_data.length === 0){
                             var msg = `<p class="text-center">No Search history here. Please search above.</p>`
                             searchResultData.append(msg)
