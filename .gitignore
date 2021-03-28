@@ -329,4 +329,3 @@ resumemonlivre_rest/media/
 .envs/*
 !.envs/.local/
 .idea/
-fb_config.json

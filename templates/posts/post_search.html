@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Search Result
+{% endblock %}
+
+{% block contain %}
+    <div class="container mt-2">
+        <h1 class="text-center">Search Result for: {{ query }}</h1>
+        <p>Find {{ posts|length }} post(s):</p>
+        {% if posts|length < 1 %}
+            <h1 class="text-center mt-5">No data founded..</h1>
+        {% else %}
+            <div class="mt-3">
+                <ul class="list-group">
+                    {% for post in posts %}
+                         <li class="list-group-item mt-3" style="box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.1);">
+                             <div class="media p-2">
+                                 <div class="media-body">
+                                     <h5 class="mt-0">{{ post.title }}</h5>
+                                     <p>{{ post.body }}</p>
+                                     <small style="float: right">Author: {{ post.author.username }}</small>
+                                 </div>
+                             </div>
+                         </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

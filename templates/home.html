@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block contain %}
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <form class="card card-sm" action="{% url 'posts:post_search' %}" method="get">
+                    <div class="card-body row no-gutters align-items-center">
+                        <div class="col-auto">
+                            <i class="fas fa-search h4 text-body"></i>
+                        </div>
+                        <div class="col">
+                            <input id="search-box" onkeyup="disableButton()" class="form-control form-control-lg form-control-borderless" type="search" name='q' placeholder="Search posts or keywords">
+                        </div>
+
+                        <div class="col-auto ml-2">
+                            <button id="search-button" class="btn btn-lg btn-success" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% include 'snippets/search-history.html' %}
+{% endblock %}
+
+{% block extra_script %}
+    <script>
+        function disableButton() {
+            document.getElementById('search-button').disabled = document.getElementById("search-box").value === "";
+        }
+        $(document).ready(function (){
+            disableButton();
+
+            $.ajax({
+                type: "get",
+                url: '/search-history/',
+                dataType: "json",
+                success: function(data){
+                    var searchResultData = $('#search-result-data')
+                    var searchData = ''
+                    var json_data = JSON.parse(data)
+                    console.log(json_data);
+                    if (json_data.length === 0){
+                        var msg = `<p class="text-center">No Search history here. Please search above.</p>`
+                        searchResultData.append(msg)
+                    }
+                    $.each(json_data, function (index, value) {
+                        searchData =
+                            `<li class="list-group-item mt-2" style="box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.1);">
+                                <div class="media" >
+                                    <div class="media-body" >
+                                        <h5 class="mt-0" id="keyword">${value.keyword}</h5>
+                                        <p>${value.time}</p>
+                                        Search Time: <span id="time">${moment(value.time).format("LLLL")}</span>
+                                        <small style="float: right">user: <span id="author">${value.user}</span></small>
+                                    </div>
+                                 </div>
+                             </li>`
+                        searchResultData.append(searchData)
+                    } )
+                },
+                error: function(){
+                    alert("error");
+                }
+            });
+
+            var filterForm = $('#filter-form');
+            filterForm.submit(function (event) {
+                event.preventDefault()
+                var thisForm = $(this)
+                console.log(thisForm.serialize());
+                $.ajax({
+                    type: "get",
+                    url: '/search-history/',
+                    dataType: "json",
+                    data: thisForm.serialize(),
+                    success: function(data){
+                        var searchResultData = $('#search-result-data');
+                        searchResultData.html('');
+                        var searchData = '';
+                        var json_data = JSON.parse(data);
+                        console.log(json_data);
+                        if (json_data.length === 0){
+                            var msg = `<p class="text-center">No Search history here. Please search above.</p>`
+                            searchResultData.append(msg)
+                        }
+                        $.each(json_data, function (index, value) {
+                            searchData =
+                                `<li class="list-group-item mt-2" style="box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.1);">
+                                    <div class="media" >
+                                        <div class="media-body" >
+                                            <h5 class="mt-0" id="keyword">${value.keyword}</h5>
+                                            <p>${value.time}</p>
+                                            Search Time: <span id="time">${moment(value.time).format("LLLL")}</span>
+                                            <small style="float: right">user: <span id="author">${value.user}</span></small>
+                                        </div>
+                                     </div>
+                                 </li>`
+                            searchResultData.append(searchData)
+                        } )
+                    },
+                    error: function(){
+                        alert("error");
+                    }
+                });
+            });
+
+
+        });
+        $(function () {
+          $('.sev_check').click(function(e) {
+            $('.sev_check').not(this).prop('checked', false);
+          });
+        });
+
+    </script>
+{% endblock %}

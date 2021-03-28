@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block contain %}
+    <div class="jumbotron">
+        <h1 class="display-4">Hello, {{ user.username }}!</h1>
+        <p class="lead">Welcome to your profile.</p>
+        <hr class="my-4">
+        <p><strong>Email: </strong>{{ user.email }}</p>
+        <p><strong>User: </strong>{{ user.username }}</p>
+        <a class="btn btn-outline-primary" href="{% url 'core:home-page' %}">Back to Home</a>
+    </div>
+{% endblock %}

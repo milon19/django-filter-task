@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="row text-center m-3">
+        <div class="col-12">
+            <h2>Search History</h2>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-3 p-2" style="border: 1px solid silver; border-right: 0; height: 720px; overflow: scroll;">
+            <p>Apply filters: </p>
+            <form action="{% url 'filters:search-history' %}" method="get" id="filter-form">
+                <label><strong>Users</strong></label>
+                {% if users|length < 1 %}
+                    <p><small class="text-muted">No user data available...</small></p>
+                {% else %}
+                    <div class="form-check">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" value="None" id="none" name="username">
+                            <label class="form-check-label" for="none">None</label>
+                        </div>
+                    </div>
+                    {% for user in users %}
+                        <div class="form-check">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" value="{{ user.username }}" id="{{ user.userame }}" name="username">
+                                <label class="form-check-label" for="{{ user.useram }}">{{ user.username }}</label>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <br>
+                <label><strong>Keywords</strong></label>
+                 {% if keywords|length < 1 %}
+                    <p><small class="text-muted">No keywords data available...</small></p>
+                {% endif %}
+                {% for keyword in keywords %}
+                    <div class="form-check">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" value="{{ keyword.keyword }}" id="{{ keyword.keyword }}" name="keyword">
+                            <label class="form-check-label" for="{{ keyword.keyword }}">
+                                {{ keyword.keyword }}
+                                <span class="text-muted">
+                                    [found {{ keyword.count }} time(s)]
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                {% endfor %}
+                <br>
+                <label><strong>Time</strong></label>
+                <div class="form-check">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input sev_check" value="Y" id="yesterday" name="time">
+                        <label class="form-check-label" for="yesterday">Yesterday</label>
+                    </div>
+                </div>
+                <div class="form-check">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input sev_check" value="W" id="last_week" name="time">
+                        <label class="form-check-label" for="last_week">Last Week</label>
+                    </div>
+                </div>
+                <div class="form-check">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input sev_check" value="M" id="last_month" name="time">
+                        <label class="form-check-label" for="last_month">Last Month</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-1">Search Result</button>
+            </form>
+        </div>
+        <div class="col-9 p-2" id="search-result-data" style="border: 1px solid silver; height: 720px; overflow: scroll;">
+            <!--put data using jQuery-->
+        </div>
+    </div>
+</div>
+
