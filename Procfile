@@ -1,0 +1,1 @@
+web: gunicorn search_engine_qtec.wsgi --log-file -
